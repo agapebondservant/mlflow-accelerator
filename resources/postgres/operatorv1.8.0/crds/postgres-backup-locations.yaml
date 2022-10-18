@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.8.0
+    controller-gen.kubebuilder.io/version: v0.9.0
   creationTimestamp: null
   name: postgresbackuplocations.sql.tanzu.vmware.com
   labels:
@@ -33,6 +33,10 @@ spec:
             spec:
               description: PostgresBackupLocationSpec defines the desired state of PostgresBackupLocation
               properties:
+                additionalParameters:
+                  additionalProperties:
+                    type: string
+                  type: object
                 retentionPolicy:
                   properties:
                     diffRetention:
@@ -41,8 +45,6 @@ spec:
                         number:
                           description: Number is number of differential backups to retain
                           type: integer
-                      required:
-                        - number
                       type: object
                     fullRetention:
                       description: FullRetention describes the retention policy for full backups
@@ -56,13 +58,50 @@ spec:
                             - count
                             - time
                           type: string
-                      required:
-                        - number
-                        - type
                       type: object
                   type: object
                 storage:
                   properties:
+                    azure:
+                      description: Azure describes the configuration for Azure backups
+                      properties:
+                        container:
+                          description: Container describes the Azure container storage in which the backups will be stored
+                          type: string
+                        enableSSL:
+                          default: true
+                          description: EnableSSL forces Azure server validation
+                          type: boolean
+                        endpoint:
+                          default: blob.core.windows.net
+                          description: Endpoint describes the endpoint used to connect to the blob service. Default is generally correct unless using Azure Government
+                          type: string
+                        forcePathStyle:
+                          description: ForcePathStyle forces the use of path-style addressing for azure operations
+                          type: boolean
+                        keyType:
+                          default: shared
+                          description: KeyType is either 'shared' or 'sas' and the default is 'shared'
+                          enum:
+                            - shared
+                            - sas
+                          type: string
+                        repoPath:
+                          default: /
+                          description: RepoPath describes the path to where backups and archive are stored
+                          type: string
+                        secret:
+                          description: Secret describes the secret that'll be used to access provided Azure containers
+                          properties:
+                            name:
+                              description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'
+                              type: string
+                          type: object
+                      required:
+                        - container
+                        - enableSSL
+                        - secret
+                      type: object
                     s3:
                       description: S3 describes the configuration for S3 backups
                       properties:
@@ -112,9 +151,3 @@ spec:
       storage: true
       subresources:
         status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []
