@@ -12,3 +12,4 @@ accelerator:
   - "python"
   - "java"
   - "R"
+  - "mlflow"
