@@ -28,7 +28,7 @@ spec:
               value: #@ data.values.secret_key
             - name: MLFLOW_S3_IGNORE_TLS
               value: #@ data.values.ignore_tls
-            - name: S3_DEFAULT_REGION
+            - name: AWS_DEFAULT_REGION
               value: #@ data.values.region
             - name: BACKEND_URI
               value: #@ data.values.backing_store

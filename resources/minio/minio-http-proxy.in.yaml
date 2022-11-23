@@ -4,12 +4,12 @@ metadata:
   name: minio-httpproxy
   namespace: minio-ml
 spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: minio
+          port: 9000
   virtualhost:
     fqdn: ${MLFLOW_S3_ENDPOINT_FQDN}
-    tls:
-      passthrough: true
-  tcpproxy:
-    services:
-    - name: minio
-      port: 9000
     

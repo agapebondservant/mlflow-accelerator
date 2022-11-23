@@ -5,7 +5,7 @@ export MLFLOW_DB_NAME=pg-mlflow-app
 export MLFLOW_DB_USER=pgadmin
 export MLFLOW_DB_PASSWORD=$(kubectl get secret pg-mlflow-app-db-secret -n default -o jsonpath='{.data.password}' | base64 --decode)
 export MLFLOW_DB_URI=postgresql://${MLFLOW_DB_USER}:${MLFLOW_DB_PASSWORD}@${MLFLOW_DB_HOST}:5432/${MLFLOW_DB_NAME}
-export MLFLOW_S3_ENDPOINT_URL=https://${MLFLOW_S3_ENDPOINT_FQDN}
+export MLFLOW_S3_ENDPOINT_URL=http://${MLFLOW_S3_ENDPOINT_FQDN}
 export S3_ACCESS_KEY_ID=$(kubectl get secret minio -o jsonpath="{.data.accesskey}" -n minio-ml| base64 --decode)
 export S3_SECRET_ACCESS_KEY=$(kubectl get secret minio -o jsonpath="{.data.secretkey}" -n minio-ml| base64 --decode)
 

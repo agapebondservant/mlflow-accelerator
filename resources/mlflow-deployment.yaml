@@ -42,7 +42,7 @@ spec:
                   optional: false
             - name: MLFLOW_S3_IGNORE_TLS
               value: "true"
-            - name: S3_DEFAULT_REGION
+            - name: AWS_DEFAULT_REGION
               value: "us-east-1" #replace with your bucket region
             - name: BACKEND_URI
               value: ${MLFLOW_DB_URI}

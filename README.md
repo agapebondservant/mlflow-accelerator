@@ -40,7 +40,7 @@ resources/scripts/deploy-postgres-cluster.sh
 resources/scripts/deploy-minio.sh
 ```
 
-5. Build and push Docker image:  (if it has not already been built - else skip this step):
+5. Build and push Docker image:  (one-time op. If it has been built previously, then skip this step):
 ```
 source .env
 docker build --build-arg MLFLOW_PORT_NUM=${MLFLOW_PORT} \
@@ -179,7 +179,7 @@ docker run -it --rm -p 8020:8020 \
 ```
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.17.4/controller.yaml
 source .env # populate the .env file with the appropriate creds - use .env-sample as a template
-kubectl create secret generic mlflowcreds --from-literal=S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID} --from-literal=S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY} --from-literal=S3_DEFAULT_REGION=${S3_DEFAULT_REGION} --from-literal=MLFLOW_S3_ENDPOINT_URL=${MLFLOW_S3_ENDPOINT_URL} --from-literal=MLFLOW_S3_IGNORE_TLS=${MLFLOW_S3_IGNORE_TLS} --from-literal=MLFLOW_BACKEND_URI=${MLFLOW_DB_URI} --dry-run=client -o yaml > mlflow-creds-secret.yaml
+kubectl create secret generic mlflowcreds --from-literal=S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID} --from-literal=S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY} --from-literal=AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION} --from-literal=MLFLOW_S3_ENDPOINT_URL=${MLFLOW_S3_ENDPOINT_URL} --from-literal=MLFLOW_S3_IGNORE_TLS=${MLFLOW_S3_IGNORE_TLS} --from-literal=MLFLOW_BACKEND_URI=${MLFLOW_DB_URI} --dry-run=client -o yaml > mlflow-creds-secret.yaml
 kubeseal --scope cluster-wide -o yaml <mlflow-creds-secret.yaml> resources/mlflow-creds-sealedsecret.yaml
 kubectl create secret docker-registry docker-creds --docker-server=index.docker.io --docker-username=${DOCKER_REG_USERNAME} --docker-password=${DOCKER_REG_PASSWORD} --dry-run -o yaml > docker-creds-secret.yaml
 echo '---' >>resources/mlflow-creds-sealedsecret.yaml
