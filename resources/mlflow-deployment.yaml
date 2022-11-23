@@ -28,17 +28,17 @@ spec:
           env:
             - name: MLFLOW_S3_ENDPOINT_URL
               value: "https://minio.tanzudatatap.ml" #replace with your Minio endpoint
-            - name: S3_ACCESS_KEY_ID
+            - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
                   name: mlflowcreds
-                  key: S3_ACCESS_KEY_ID
+                  key: AWS_ACCESS_KEY_ID
                   optional: false
-            - name: S3_SECRET_ACCESS_KEY
+            - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
                   name: mlflowcreds
-                  key: S3_SECRET_ACCESS_KEY
+                  key: AWS_SECRET_ACCESS_KEY
                   optional: false
             - name: MLFLOW_S3_IGNORE_TLS
               value: "true"

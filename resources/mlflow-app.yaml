@@ -22,9 +22,9 @@ spec:
           env:
             - name: MLFLOW_S3_ENDPOINT_URL
               value: #@ data.values.artifact_store
-            - name: S3_ACCESS_KEY_ID
+            - name: AWS_ACCESS_KEY_ID
               value: #@ data.values.access_key
-            - name: S3_SECRET_ACCESS_KEY
+            - name: AWS_SECRET_ACCESS_KEY
               value: #@ data.values.secret_key
             - name: MLFLOW_S3_IGNORE_TLS
               value: #@ data.values.ignore_tls
