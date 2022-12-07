@@ -1,4 +1,4 @@
-FROM python:3-slim
+FROM python:3.10-slim
 
 ARG MLFLOW_PORT_NUM
 ENV MLFLOW_PORT=$MLFLOW_PORT_NUM
