@@ -6,6 +6,7 @@ metadata:
 spec:
   storageClassName: generic
   monitorStorageClassName: generic
+  certificateSecretName: tls-ssl-postgres
   highAvailability:
     enabled: false
   seccompProfile:
