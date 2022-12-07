@@ -15,3 +15,5 @@ resources/minio/minio-http-proxy.yaml
 resources/minio/openssl.conf
 private.key
 public.crt
+tls.crt
+tls.key
