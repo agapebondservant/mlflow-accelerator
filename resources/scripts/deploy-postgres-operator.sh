@@ -4,7 +4,7 @@ source .env
 echo $DOCKER_REG_PASSWORD | docker login registry-1.docker.io --username=$DOCKER_REG_USERNAME --password-stdin
 
 # install the operator
-kubectl create secret docker-registry image-pull-secret --namespace=default --docker-username='$DOCKER_REG_USERNAME' --docker-password='$DOCKER_REG_PASSWORD' --dry-run -o yaml | kubectl apply -f -
+kubectl create secret docker-registry image-pull-secret --namespace=default --docker-username=$DOCKER_REG_USERNAME --docker-password=$DOCKER_REG_PASSWORD --dry-run -o yaml | kubectl apply -f -
 
 helm uninstall postgres --namespace default;
 
