@@ -12,4 +12,4 @@ WORKDIR /mlflow/
 COPY requirements.txt /tmp
 RUN pip install -r /tmp/requirements.txt
 
-CMD mlflow server --serve-artifacts --backend-store-uri ${BACKEND_URI} --artifacts-destination ${ARTIFACT_ROOT}/artifacts/ --host 0.0.0.0 --port ${MLFLOW_PORT}
+CMD mlflow server --serve-artifacts --gunicorn-opts='--timeout=3600' --backend-store-uri ${BACKEND_URI} --artifacts-destination ${ARTIFACT_ROOT}/artifacts/ --host 0.0.0.0 --port ${MLFLOW_PORT}
