@@ -23,7 +23,10 @@ tanzu acc create mlflow --git-repository https://github.com/agapebondservant/mlf
 ### Install MLFlow via TAP/tanzu cli<a name="tanzu"/>
 
 #### Before you begin (one time setup):
-1. Create an environment file `.env`; use `.env-sample` as a template.
+1. Create an environment file `.env` (use `.env-sample` as a template), then run:
+```
+source .env
+```
 
 2. Deploy Postgres operator (if it does not already exist - else skip this step):
 ```
@@ -39,10 +42,9 @@ resources/scripts/deploy-postgres-cluster.sh
 ```
 resources/scripts/deploy-minio.sh
 ```
-NOTE: A bucket must exist called *mlflow*. You may add this manually, or use a script.
-TODO: Include a script to manually create the *mlflow* bucket.
+NOTE: Requires Minio Client: <a href="https://min.io/docs/minio/linux/reference/minio-mc.html" target="_blank">Link</a>
 
-5. Build and push Docker image:  (one-time op. If it has been built previously, then skip this step):
+5. Build and push Docker image:  (one-time op. If it has been built previously, or if it does not need to be rebuilt, then skip this step):
 ```
 source .env
 docker build --build-arg MLFLOW_PORT_NUM=${MLFLOW_PORT} \
@@ -53,7 +55,7 @@ docker push ${MLFLOW_CONTAINER_REPO}
 ```
 
 #### Deploy MLFlow
-6. Create the MLFlow package bundle as a pre-requisite (only necessary if any of the preceeding steps was executed):
+6. Create the MLFlow package bundle as a pre-requisite (one-time op. If it has been built previously, or if it does not need to be rebuilt, then skip this step):
 ```
 resources/scripts/create-mlflow-package-bundle.sh
 ```
@@ -62,14 +64,14 @@ resources/scripts/create-mlflow-package-bundle.sh
 Install the MLFlow Package Repository:
 ```
 tanzu package repository add mlflow-package-repository \
-  --url oawofolu/mlflow-packages-repo:1.0.0 \
-  --namespace mlflow \
+  --url ${MLFLOW_BASE_REPO}/mlflow-packages-repo:${MLFLOW_VERSION} \
+  --namespace ${MLFLOW_NAMESPACE} \
   --create-namespace
 ```
 
 Verify that the MLFlow package is available for install:
 ```
-tanzu package available list mlflow.tanzu.vmware.com --namespace mlflow 
+tanzu package available list mlflow.tanzu.vmware.com --namespace ${MLFLOW_NAMESPACE}
 ```
 
 Generate a values.yaml file to use for the install - update as desired:
@@ -79,25 +81,25 @@ resources/scripts/generate-values-yaml.sh resources/mlflow-values.yaml #replace 
 
 Install via **tanzu cli**:
 ```
-tanzu package install mlflow -p mlflow.tanzu.vmware.com -v 1.0.0 --values-file resources/mlflow-values.yaml --namespace mlflow 
+tanzu package install mlflow -p mlflow.tanzu.vmware.com -v ${MLFLOW_VERSION} --values-file resources/mlflow-values.yaml --namespace ${MLFLOW_NAMESPACE} 
 ```
 
 Verify that the install was successful:
 ```
-tanzu package installed get mlflow --namespace mlflow 
+tanzu package installed get mlflow --namespace ${MLFLOW_NAMESPACE}
 ```
 
 To uninstall:
 ```
-tanzu package installed delete mlflow --namespace mlflow  -y
-tanzu package repository delete mlflow-package-repository --namespace mlflow -y
-kubectl delete ns mlflow
+tanzu package installed delete mlflow --namespace ${MLFLOW_NAMESPACE}  -y
+tanzu package repository delete mlflow-package-repository --namespace ${MLFLOW_NAMESPACE} -y
+kubectl delete ns ${MLFLOW_NAMESPACE}
 ```
 
 To uninstall Postgres/Minio dependencies:
 ```
-kubectl delete postgres pg-mlflow-app
-helm uninstall minio -n minio-ml
+kubectl delete postgres pg-mlflow-app -n ${POSTGRES_CLUSTER_NAMESPACE}
+helm uninstall minio -n ${MINIO_BUCKET_NAMESPACE}
 ```
 
 Finally, access the Tracker server via the **ingress_fqdn** indicated in resources/mlflow-values.yaml.
