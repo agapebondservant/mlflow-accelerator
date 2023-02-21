@@ -17,3 +17,4 @@ private.key
 public.crt
 tls.crt
 tls.key
+resources/postgres/overrides.yaml

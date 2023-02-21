@@ -24,6 +24,8 @@ for i in $(kubectl get validatingwebhookconfiguration | grep postgres); do kubec
 
 for i in $(kubectl get crd | grep postgres); do kubectl delete crd ${i} > /dev/null 2>&1; done;
 
-helm install postgres resources/postgres/operatorv1.8.0 -f resources/postgres/overrides.yaml --namespace default --wait &> /dev/null;
+envsubst < resources/postgres/overrides.in.yaml > resources/postgres/overrides.yaml
 
-kubectl apply -f resources/postgres/operatorv1.8.0/crds/
+helm install postgres resources/postgres/operatorv${POSTGRES_OPERATOR_VERSION} -f resources/postgres/overrides.yaml --namespace default --wait &> /dev/null;
+
+kubectl apply -f resources/postgres/operatorv${POSTGRES_OPERATOR_VERSION}/crds/
