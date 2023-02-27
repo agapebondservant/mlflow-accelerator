@@ -98,7 +98,7 @@ kubectl delete ns ${MLFLOW_NAMESPACE}
 
 To uninstall Postgres/Minio dependencies:
 ```
-kubectl delete postgres pg-mlflow-app -n ${POSTGRES_CLUSTER_NAMESPACE}
+kubectl delete postgres pg-mlflow-instance -n ${POSTGRES_CLUSTER_NAMESPACE}
 helm uninstall minio -n ${MINIO_BUCKET_NAMESPACE}
 ```
 

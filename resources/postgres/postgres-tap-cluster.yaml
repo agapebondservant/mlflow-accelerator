@@ -2,7 +2,7 @@
 apiVersion: sql.tanzu.vmware.com/v1
 kind: Postgres
 metadata:
-  name: pg-mlflow-app
+  name: pg-mlflow-instance
 spec:
   storageClassName: generic
   monitorStorageClassName: generic
@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: pg-mlflow-app-lb-svc
+  name: pg-mlflow-instance-lb-svc
 spec:
   type: LoadBalancer
   ports:
@@ -24,4 +24,4 @@ spec:
       protocol: TCP
       name: tcp
   selector:
-    postgres-instance: pg-mlflow-app
+    postgres-instance: pg-mlflow-instance

@@ -1,10 +1,10 @@
 # Generate Postgres/Minio variables
 source .env
-export MLFLOW_DB_HOST=$(kubectl get svc pg-mlflow-app-lb-svc -n${POSTGRES_CLUSTER_NAMESPACE} -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
-export MLFLOW_DB_NAME=pg-mlflow-app
+export MLFLOW_DB_HOST=$(kubectl get svc pg-mlflow-instance-lb-svc -n${POSTGRES_CLUSTER_NAMESPACE} -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+export MLFLOW_DB_NAME=pg-mlflow-instance
 export MLFLOW_DB_HOST_LOCAL=${MLFLOW_DB_NAME}.${POSTGRES_CLUSTER_NAMESPACE}.svc.cluster.local
 export MLFLOW_DB_USER=pgadmin
-export MLFLOW_DB_PASSWORD=$(kubectl get secret pg-mlflow-app-db-secret -n ${POSTGRES_CLUSTER_NAMESPACE} -o jsonpath="{.data.password}" | base64 --decode)
+export MLFLOW_DB_PASSWORD=$(kubectl get secret pg-mlflow-instance-db-secret -n ${POSTGRES_CLUSTER_NAMESPACE} -o jsonpath="{.data.password}" | base64 --decode)
 export MLFLOW_DB_URI=postgresql://${MLFLOW_DB_USER}:${MLFLOW_DB_PASSWORD}@${MLFLOW_DB_HOST_LOCAL}:5432/${MLFLOW_DB_NAME}?sslmode=require
 export MLFLOW_S3_ENDPOINT_URL=http://${MLFLOW_S3_ENDPOINT_FQDN}
 export AWS_ACCESS_KEY_ID=$(kubectl get secret minio -o jsonpath="{.data.accesskey}" -n ${MINIO_BUCKET_NAMESPACE}| base64 --decode)
