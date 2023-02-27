@@ -1,2 +1,2 @@
-operatorImageRepository: oawofolu/postgres-operator:v2.0.0
-postgresImageRepository: oawofolu/postgres-instance:v2.0.0
+operatorImageRepository: ${DOCKER_REG_USERNAME}/postgres-operator:v2.0.0
+postgresImageRepository: ${DOCKER_REG_USERNAME}/postgres-instance-enhanced-python:v2.0.0
