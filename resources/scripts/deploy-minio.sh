@@ -18,6 +18,8 @@ export SECRET_ACCESS_KEY=$(kubectl get secret minio -o jsonpath="{.data.secretke
 
 kubectl wait --for=condition=Ready pod -l app=minio -n ${MINIO_BUCKET_NAMESPACE} --timeout=120s
 
+sleep 5
+
 mc config host add --insecure data-e2e-minio-ml http://${MLFLOW_S3_ENDPOINT_FQDN} ${ACCESS_KEY_ID} ${SECRET_ACCESS_KEY}
 
 mc mb --insecure -p data-e2e-minio-ml/mlflow && mc policy --insecure set public data-e2e-minio-ml/mlflow

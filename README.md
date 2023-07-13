@@ -63,10 +63,10 @@ resources/scripts/create-mlflow-package-bundle.sh
 #### Deploy MLFlow
 Install the MLFlow Package Repository:
 ```
+kubectl create ns ${MLFLOW_NAMESPACE}
 tanzu package repository add mlflow-package-repository \
   --url ${MLFLOW_BASE_REPO}/mlflow-packages-repo:${MLFLOW_VERSION} \
-  --namespace ${MLFLOW_NAMESPACE} \
-  --create-namespace
+  -n ${MLFLOW_NAMESPACE}
 ```
 
 Verify that the MLFlow package is available for install:
@@ -210,3 +210,25 @@ tanzu apps workload tail mlflow-tap --since 64h -n mlflow-demo
 ```
 
 Finally, access MLFlow in your browser via the endpoint indicated in `resources/mlflow-deployment.yaml` (either via FQDN indicated by Contour's HttpProxy, or by the endpoint indicated by the Service if not using HttpProxy)
+
+## Integrate with TAP
+
+* Deploy the app (on TAP):
+```
+tanzu apps workload create mlflow-tap -f resources/tapworkloads/workload.yaml --yes
+```
+
+* Tail the logs of the main app:
+```
+tanzu apps workload tail mlflow-tap --since 64h
+```
+
+* Once deployment succeeds, get the URL for the main app:
+```
+tanzu apps workload get mlflow-tap     #should yield mlflow-tap.default.<your-domain>
+```
+
+* To delete the app:
+```
+tanzu apps workload delete mlflow-tap --yes
+```
