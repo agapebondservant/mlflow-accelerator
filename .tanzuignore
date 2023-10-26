@@ -1,9 +1,7 @@
 Dockerfile
 *.crt
 *.key
-resources/minio
-resources/postgres
-resources/scripts
+resources/*
 package-repository
 package-repo
 package-contents
