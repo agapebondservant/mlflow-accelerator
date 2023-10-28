@@ -1,9 +1,9 @@
 Dockerfile
 *.crt
 *.key
-resources
-package-repository
-package-repo
-package-contents
-data-e2e-minio-ml
+resources/
+package-repository/
+package-repo/
+package-contents/
+data-e2e-minio-ml/
 requirements.txt

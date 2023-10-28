@@ -216,20 +216,20 @@ Finally, access MLFlow in your browser via the endpoint indicated in `resources/
 * Deploy the app:
 ```
 source .env
-tanzu apps workload create mlflow-tap -f resources/tapworkloads/workload.yaml --yes
+tanzu apps workload create mlflow-server-tap -f resources/tapworkloads/workload.yaml --yes
 ```
 
 * Tail the logs of the main app:
 ```
-tanzu apps workload tail mlflow-tap --since 64h
+tanzu apps workload tail mlflow-server-tap --since 64h
 ```
 
 * Once deployment succeeds, get the URL for the main app:
 ```
-tanzu apps workload get mlflow-tap    #should yield mlflow-tap.default.<your-domain>
+tanzu apps workload get mlflow-server-tap    #should yield mlflow-tap.default.<your-domain>
 ```
 
 * To delete the app:
 ```
-tanzu apps workload delete mlflow-tap --yes
+tanzu apps workload delete mlflow-server-tap --yes
 ```
