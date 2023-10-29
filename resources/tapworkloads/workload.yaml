@@ -9,9 +9,6 @@ metadata:
   annotations:
     autoscaling.knative.dev/minScale: "1"
 spec:
-  params:
-    - name: clusterBuilder
-      value: full
   env:
     - name: BP_WEB_SERVER
       value: nginx
@@ -19,4 +16,4 @@ spec:
     git:
       url: https://github.com/agapebondservant/mlflow-accelerator.git
       ref:
-        branch: main
+        branch: tap
