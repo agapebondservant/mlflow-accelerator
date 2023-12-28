@@ -6,12 +6,12 @@ metadata:
 spec:
   virtualhost:
     fqdn: minio-ml-console.${MLFLOW_INGRESS_DOMAIN}
-    tls:
-      passthrough: true
-  tcpproxy:
-    services:
-      - name: minio
-        port: 9001
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: minio
+          port: 9001
 ---
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
@@ -21,10 +21,10 @@ metadata:
 spec:
   virtualhost:
     fqdn: ${MLFLOW_S3_ENDPOINT_FQDN}
-    tls:
-      passthrough: true
-  tcpproxy:
-    services:
-      - name: minio
-        port: 9000
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: minio
+          port: 9000
     
