@@ -1,2 +1,0 @@
-operatorImage: ${DOCKER_REG_USERNAME}/postgres-operator:v2.0.0
-postgresImage: ${DOCKER_REG_USERNAME}/postgres-instance-python3:v2.0.0

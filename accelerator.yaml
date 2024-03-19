@@ -1,15 +1,62 @@
 accelerator:
-  displayName: MLFlow Accelerator
-  description: Project template for deploying MLFlow to a Kubernetes cluster or TAP
-  iconUrl: https://www.mlflow.org/docs/1.22.0/_static/MLflow-logo-final-black.png
+  displayName: Bitnami MLflow Accelerator
+  description: Template for deploying Bitnami MLflow to TAP
+  iconUrl: https://static-00.iconduck.com/assets.00/airflow-icon-512x512-tpr318yf.png
   tags:
   - "ML"
   - "AI"
-  - "machinelearning"
+  - "pipeline"
   - "datascience"
   - "MLOps"
-  - "artificialintelligence"
+  - "workflow"
   - "python"
-  - "java"
-  - "R"
+  - "data"
   - "mlflow"
+  options:
+    - name: mlPlatformType
+      inputType: radio
+      display: true
+      choices:
+        - text: 'View guidance manual: https://github.com/bitnami/charts/tree/main/bitnami/mlflow'
+          value: training
+      defaultValue: training
+    - name: mlflowTrackingEnabled
+      inputType: text
+      display: true
+      label: 'tracking.enabled'
+      defaultValue: 'true'
+      dependsOn:
+        name: mlPlatformType
+        value: training
+    - name: mlflowTrackingServiceType
+      inputType: text
+      display: true
+      label: 'tracking.service.type'
+      defaultValue: 'LoadBalancer'
+      dependsOn:
+        name: mlPlatformType
+        value: training
+    - name: mlflowMainImageTag
+      inputType: text
+      display: true
+      label: 'image.tag'
+      defaultValue: 'bitnami/mlflow:2.7.1'
+      dependsOn:
+        name: mlPlatformType
+        value: training
+engine:
+  type: Merge
+  sources:
+    - type: Chain
+      transformations:
+        - type: Include
+          patterns: [ 'resources/values-overrides.yaml' ]
+        - type: ReplaceText
+          substitutions:
+            - text: REPLACE_MLFLOW_TRACKING_ENABLED
+              with: "#mlflowTrackingEnabled"
+            - text: REPLACE_MLFLOW_TRACKING_SERVICE_TYPE
+              with: "#mlflowTrackingServiceType"
+            - text: REPLACE_MLFLOW_MAIN_IMAGE_TAG
+              with: "#mlflowMainImageTag"
+
