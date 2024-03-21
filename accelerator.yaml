@@ -13,6 +13,16 @@ accelerator:
   - "data"
   - "mlflow"
   options:
+    - name: mlflow
+      inputType: radio
+      display: true
+      choices:
+        - text: 'MLflow (ML Training)'
+          value: selected
+      defaultValue: selected
+      dependsOn:
+        name: mlPlatformType
+        value: training
     - name: mlPlatformType
       inputType: radio
       display: true
