@@ -88,7 +88,7 @@ diagnosticMode:
 image:
   registry: docker.io
   repository: bitnami/mlflow
-  tag: REPLACE_MLFLOW_MAIN_IMAGE_TAG
+  tag: bitnami/mlflow:2.7.1
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

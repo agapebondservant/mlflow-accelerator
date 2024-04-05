@@ -2,4 +2,3 @@
 ---
 mlflow_tracking_enabled: REPLACE_MLFLOW_TRACKING_ENABLED
 mlflow_tracking_service_type: REPLACE_MLFLOW_TRACKING_SERVICE_TYPE
-mlflow_main_image_tag: REPLACE_MLFLOW_MAIN_IMAGE_TAG

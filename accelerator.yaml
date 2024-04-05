@@ -46,27 +46,17 @@ accelerator:
       dependsOn:
         name: mlPlatformType
         value: training
-    - name: mlflowMainImageTag
-      inputType: text
-      display: true
-      label: 'image.tag'
-      defaultValue: 'bitnami/mlflow:2.7.1'
-      dependsOn:
-        name: mlPlatformType
-        value: training
 engine:
   type: Merge
   sources:
     - type: Chain
       transformations:
         - type: Include
-          patterns: [ 'resources/**.yaml' ]
+          patterns: [ 'resources/**/*.yaml' ]
         - type: ReplaceText
           substitutions:
             - text: REPLACE_MLFLOW_TRACKING_ENABLED
               with: "#mlflowTrackingEnabled"
             - text: REPLACE_MLFLOW_TRACKING_SERVICE_TYPE
               with: "#mlflowTrackingServiceType"
-            - text: REPLACE_MLFLOW_MAIN_IMAGE_TAG
-              with: "#mlflowMainImageTag"
 
