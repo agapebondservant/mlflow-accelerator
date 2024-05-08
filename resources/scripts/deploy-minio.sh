@@ -5,7 +5,7 @@ kubectl delete ns ${MINIO_BUCKET_NAMESPACE}
 envsubst < resources/minio/minio-http-proxy.in.yaml > resources/minio/minio-http-proxy.yaml
 
 helm install --set resources.requests.memory=1.5Gi,auth.rootUser=minio,ingress.enabled=true,ingress.hostname=${MLFLOW_S3_ENDPOINT_FQDN} \
---namespace ${MINIO_BUCKET_NAMESPACE} minio oci://registry-1.docker.io/bitnamicharts/minio --create-namespace
+--namespace ${MINIO_BUCKET_NAMESPACE} minio bitnami/minio --create-namespace
 
 kubectl apply -f resources/minio/minio-http-proxy.yaml --namespace ${MINIO_BUCKET_NAMESPACE}
 
