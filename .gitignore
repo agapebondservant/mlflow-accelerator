@@ -1,2 +1,10 @@
 resources/secret.yaml
 resources/secret.in.yaml
+package-contents
+package-repo
+bitnami-minio/minio
+bitnami-minio/postgres
+tls.crt
+tls.key
+bitnami-minio/mlflow-values.yaml
+.env
