@@ -9,7 +9,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: mlops-flux-system
-  path: ./clusters/mlops/mlflow-accelerator/bitnami-mlflow/2.12.1
+  path: ./bitnami-mlflow/2.12.1
   prune: true
   wait: true
   timeout: 10m0s
