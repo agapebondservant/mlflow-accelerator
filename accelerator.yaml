@@ -46,6 +46,47 @@ accelerator:
       dependsOn:
         name: mlPlatformType
         value: training
+    - name: mlflowTrackingIngressEnabled
+      inputType: text
+      display: true
+      label: 'tracking.ingress.enabled'
+      defaultValue: 'true'
+      dependsOn:
+        name: mlPlatformType
+        value: training
+    - name: mlflowTrackingIngressHostname
+      inputType: text
+      display: true
+      label: 'tracking.ingress.hostname'
+      defaultValue: 'yourhostname.com'
+      dependsOn:
+        name: mlPlatformType
+        value: training
+    - name: mlflowTrackingIngressTls
+      inputType: text
+      display: true
+      label: 'tracking.ingress.tls'
+      defaultValue: 'true'
+      dependsOn:
+        name: mlPlatformType
+        value: training
+    - name: mlflowTrackingIngressSelfSigned
+      inputType: text
+      display: true
+      label: 'tracking.ingress.selfSigned'
+      defaultValue: 'true'
+      dependsOn:
+        name: mlPlatformType
+        value: training
+    - name: mlflowTrackingMetricsEnabled
+      inputType: text
+      display: true
+      label: 'tracking.metrics.enabled'
+      defaultValue: 'true'
+      dependsOn:
+        name: mlPlatformType
+        value: training
+
 engine:
   type: Merge
   sources:
@@ -59,4 +100,14 @@ engine:
               with: "#mlflowTrackingEnabled"
             - text: REPLACE_MLFLOW_TRACKING_SERVICE_TYPE
               with: "#mlflowTrackingServiceType"
+            - text: REPLACE_MLFLOW_TRACKING_INGRESS_ENABLED
+              with: "#mlflowTrackingIngressEnabled"
+            - text: REPLACE_MLFLOW_TRACKING_INGRESS_HOSTNAME
+              with: "#mlflowTrackingIngressHostname"
+            - text: REPLACE_MLFLOW_TRACKING_INGRESS_TLS
+              with: "#mlflowTrackingIngressTls"
+            - text: REPLACE_MLFLOW_TRACKING_INGRESS_SELFSIGNED
+              with: "#mlflowTrackingIngressSelfSigned"
+            - text: REPLACE_MLFLOW_TRACKING_METRICS_ENABLED
+              with: "#mlflowTrackingMetricsEnabled"
 
