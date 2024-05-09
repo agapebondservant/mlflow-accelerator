@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: airflow
+  namespace: flux-system
+spec:
+  interval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: mlops-flux-system
+  path: ./clusters/mlops/mlflow-accelerator/bitnami-mlflow/2.12.1
+  prune: true
+  wait: true
+  timeout: 10m0s
