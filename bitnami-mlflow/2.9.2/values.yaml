@@ -239,7 +239,7 @@ tracking:
   ## @param tracking.auth.extraOverrides Add extra settings to the basic_auth.ini file
   ## @param tracking.auth.overridesConfigMap Name of a ConfigMap containing overrides to the basic_auth.ini file
   auth:
-    enabled: true
+    enabled: false
     username: user
     password: ""
     existingSecret: ""
