@@ -718,7 +718,7 @@ tracking:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: ""
+    storageClass: "REPLACE_MLFLOW_TRACKING_PERSISTENCE_STORAGECLASS"
     ## @param tracking.persistence.labels Persistent Volume labels
     ##
     labels: {}
@@ -731,7 +731,7 @@ tracking:
       - ReadWriteOnce
     ## @param tracking.persistence.size Size of data volume
     ##
-    size: 8Gi
+    size: REPLACE_MLFLOW_TRACKING_PERSISTENCE_SIZE
     ## @param tracking.persistence.existingClaim The name of an existing PVC to use for persistence
     ##
     existingClaim: ""
@@ -915,7 +915,7 @@ run:
   ## @param run.resourcesPreset Set container resources according to one common preset (allowed values: none, nano, micro, small, medium, large, xlarge, 2xlarge). This is ignored if run.resources is set (run.resources is recommended for production).
   ## More information: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15
   ##
-  resourcesPreset: "small"
+  resourcesPreset: REPLACE_MLFLOW_TRACKING_RESOURCES_PRESET
   ## @param run.resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
   ## Example:
   ## resources:

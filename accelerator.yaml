@@ -86,6 +86,30 @@ accelerator:
       dependsOn:
         name: mlPlatformType
         value: training
+    - name: mlflowTrackingPersistenceStorageClass
+      inputType: text
+      display: true
+      label: 'tracking.persistence.storageClass'
+      defaultValue: ''
+      dependsOn:
+        name: mlPlatformType
+        value: training
+    - name: mlflowTrackingPersistenceSize
+      inputType: text
+      display: true
+      label: 'tracking.persistence.size'
+      defaultValue: '20Gi'
+      dependsOn:
+        name: mlPlatformType
+        value: training
+    - name: mlflowTrackingResourcesPreset
+      inputType: text
+      display: true
+      label: 'tracking.resourcesPreset'
+      defaultValue: 'small'
+      dependsOn:
+        name: mlPlatformType
+        value: training
 
 engine:
   type: Merge
@@ -110,4 +134,10 @@ engine:
               with: "#mlflowTrackingIngressSelfSigned"
             - text: REPLACE_MLFLOW_TRACKING_METRICS_ENABLED
               with: "#mlflowTrackingMetricsEnabled"
+            - text: REPLACE_MLFLOW_TRACKING_PERSISTENCE_STORAGECLASS
+              with: "#mlflowTrackingPersistenceStorageClass"
+            - text: REPLACE_MLFLOW_TRACKING_PERSISTENCE_SIZE
+              with: "#mlflowTrackingPersistenceSize"
+            - text: REPLACE_MLFLOW_TRACKING_RESOURCES_PRESET
+              with: "#mlflowTrackingResourcesPreset"
 

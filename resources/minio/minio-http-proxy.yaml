@@ -1,0 +1,30 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: minio-ml-console-httpproxy
+  namespace: minio-ml
+spec:
+  virtualhost:
+    fqdn: minio-ml-console.tanzumlai.com
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: minio
+          port: 9001
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: minio-ml-httpproxy
+  namespace: minio-ml
+spec:
+  virtualhost:
+    fqdn: minio-ml.tanzumlai.com
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: minio
+          port: 9000
+    

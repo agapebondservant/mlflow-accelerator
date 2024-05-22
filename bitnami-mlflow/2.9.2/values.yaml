@@ -697,7 +697,7 @@ tracking:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: ""
+    storageClass: "REPLACE_MLFLOW_TRACKING_PERSISTENCE_STORAGECLASS"
     ## @param tracking.persistence.labels Persistent Volume labels
     ##
     labels: {}
@@ -710,7 +710,7 @@ tracking:
       - ReadWriteOnce
     ## @param tracking.persistence.size Size of data volume
     ##
-    size: 8Gi
+    size: REPLACE_MLFLOW_TRACKING_PERSISTENCE_SIZE
     ## @param tracking.persistence.existingClaim The name of an existing PVC to use for persistence
     ##
     existingClaim: ""

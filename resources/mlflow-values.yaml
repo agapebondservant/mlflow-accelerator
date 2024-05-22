@@ -1,0 +1,10 @@
+region: 
+artifact_store: http://minio-ml.tanzumlai.com
+access_key: minio
+secret_key: 4hAKd4HvXA
+version: 1.0.0
+backing_store: postgresql://pgadmin:IyDpLAtJ4Jh652uvmk7q81mD4VGJ79@pg-mlflow-instance.default.svc.cluster.local:5432/pg-mlflow-instance?sslmode=require
+ingress_fqdn: mlflow.tanzumlai.com
+bucket: mlflow
+ignore_tls: "true"
+ingress_domain: tanzumlai.com
