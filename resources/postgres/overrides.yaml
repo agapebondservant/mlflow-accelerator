@@ -1,0 +1,2 @@
+operatorImage: oawofolu/postgres-operator:v2.0.0
+postgresImage: oawofolu/postgres-instance-python3:v2.0.0
