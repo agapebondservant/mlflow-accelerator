@@ -116,8 +116,6 @@ engine:
   sources:
     - type: Chain
       transformations:
-        - type: Exclude
-          patterns: [ 'catalog-info.yaml' ]
         - type: Include
           patterns: [ '**/**.yaml' ]
         - type: ReplaceText
